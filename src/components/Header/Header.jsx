@@ -60,7 +60,7 @@ export default function Header({
         onClick={() => setMenuOpen(!menuOpen)}
         ref={menuToggleRef}
       >
-        <img src="/public/icons8-menu.svg" alt="Menu" />
+        <img src="icons8-menu.svg" alt="Menu" />
       </div>
     </div>
   );

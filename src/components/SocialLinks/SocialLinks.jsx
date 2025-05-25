@@ -16,7 +16,7 @@ export default function SocialLinks() {
         >
           {t("instagram")}
           <img
-            src="/public/Instagram_icon-icons.com_66804.svg"
+            src="Instagram_icon-icons.com_66804.svg"
             alt="Instagram"
             className={styles.icon}
           />
@@ -29,7 +29,7 @@ export default function SocialLinks() {
         >
           {t("tiktok")}
           <img
-            src="/public/tiktok_logo_icon_188431.svg"
+            src="tiktok_logo_icon_188431.svg"
             alt="TikTok"
             className={styles.icon}
           />
@@ -42,7 +42,7 @@ export default function SocialLinks() {
         >
           {t("telegram")}
           <img
-            src="/public/telegram_logo_icon_147228.svg"
+            src="telegram_logo_icon_147228.svg"
             alt="Telegram"
             className={styles.icon}
           />
