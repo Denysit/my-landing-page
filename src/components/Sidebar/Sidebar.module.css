@@ -1,0 +1,29 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: #111;
+  padding: 20px;
+  z-index: 20;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sidebarList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebarList li {
+  padding: 15px 0;
+  font-size: 1.2rem;
+  color: var(--primary-text);
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.sidebarList li:hover {
+  color: var(--accent);
+}

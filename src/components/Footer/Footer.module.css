@@ -1,0 +1,17 @@
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: var(--button-bg);
+  width: 100%;
+}
+
+p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  p {
+    font-size: 1.2rem;
+  }
+}
