@@ -11,21 +11,21 @@ export default function Services() {
           <h3>{t("personalTraining")}</h3>
           <p>{t("personalTrainingDesc")}</p>
           <p>
-            <strong>{t("price")}</strong> 350 грн/заняття
+            <strong>{t("pricePersonalTraining")}</strong>
           </p>
         </div>
         <div className={styles.serviceCard}>
           <h3>{t("onlineTraining")}</h3>
           <p>{t("onlineTrainingDesc")}</p>
           <p>
-            <strong>{t("price")}</strong> 200 грн/заняття
+            <strong>{t("priceOnlineTraining")}</strong>
           </p>
         </div>
         <div className={styles.serviceCard}>
           <h3>{t("onlineConsultation")}</h3>
           <p>{t("onlineConsultationDesc")}</p>
           <p>
-            <strong>{t("price")}</strong> 800 грн
+            <strong>{t("priceOnlineConsultation")}</strong>
           </p>
         </div>
       </div>

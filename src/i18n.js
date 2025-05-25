@@ -41,10 +41,12 @@ i18n.use(initReactI18next).init({
         onlineTrainingDesc:
           "Video training at home or in the gym, training and nutrition plan",
         onlineConsultation: "Online Consultation",
-        onlineConsultationDesc: "Online training and nutrition plan",
-        price: "Price:",
+        onlineConsultationDesc: "Training and nutrition plan",
+        pricePersonalTraining: "Price: 10$",
+        priceOnlineTraining: "Price: 8$",
+        priceOnlineConsultation: "Price: 20$",
         infoDesc:
-          "I am Denys Muzyka, with 15 years of training experience and 5 years as a coach. Certified and graduated from NPU Dragomanov, Institute of Physical Education and Sports. My goal is to help you achieve your goals and lay the foundation for a healthy lifestyle. I believe everyone can become the best version of themselves, and I am here to support you on this journey. My training philosophy is based on an individual approach to each client, taking into account their needs and goals.",
+          "I am a trainer with 15 years of training experience and 5 years of coaching experience. Certified and certified specialist. Graduated from the Dragamanova National University of Physical Education and Sports, Institute of Physical Education and Sports. My goal is to help you achieve your goals and lay the foundation for a healthy lifestyle. I believe that everyone can become a better version of themselves, and I am here to support you on this path. My training philosophy is based on an individual approach to each client, taking into account their needs and goals!",
         descInfo: "Fitness-Trainer",
       },
     },
@@ -86,10 +88,12 @@ i18n.use(initReactI18next).init({
         onlineTrainingDesc:
           "Тренування по відеозв'язку вдома або в залі, план тренувань та харчування",
         onlineConsultation: "Онлайн-консультація",
-        onlineConsultationDesc: "Складання плану тренувань і харчування онлайн",
-        price: "Ціна:",
+        onlineConsultationDesc: "Складання плану тренувань і харчування",
+        pricePersonalTraining: "Ціна: 350 грн",
+        priceOnlineTraining: "Ціна: 300 грн",
+        priceOnlineConsultation: "Ціна: 1000 грн",
         infoDesc:
-          "Я — Денис Музика, стаж тренувать 15 років та 5 років тренерського досвіду. Серифікований та дипломований тренер, Закінчив НПУ Драгаманова, Інститут Фізичного виховання та спорту. Моя мета — допомогти тобі досягти цілей, та закласти фундамент здорового способу життя. Я вірю, що кожен може стати кращою версією себе, і я тут, щоб підтримати тебе на цьому шляху. Моя філософія тренувань базується на індивідуальному підході до кожного клієнта, враховуючи його потреби та цілі!",
+          "Я тренер зі стажем тренувань 15 років та 5 років тренерського досвіду. Сертифікований та дипломований спеціаліст. Закінчив НПУ Драгаманова, Інститут Фізичного виховання та спорту. Моя мета — допомогти тобі досягти цілей, та закласти фундамент здорового способу життя. Я вірю, що кожен може стати кращою версією себе, і я тут, щоб підтримати тебе на цьому шляху. Моя філософія тренувань базується на індивідуальному підході до кожного клієнта, враховуючи його потреби та цілі!",
         descInfo: "Фітнес-тренер",
       },
     },
