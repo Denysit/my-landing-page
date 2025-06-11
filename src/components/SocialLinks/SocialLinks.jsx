@@ -48,15 +48,6 @@ export default function SocialLinks() {
           />
         </motion.a>
       </div>
-      <motion.a
-        href="/guide.pdf"
-        download
-        whileHover={{ scale: 1.1, color: "#cc0000" }}
-        transition={{ duration: 0.3 }}
-        className={styles.downloadButton}
-      >
-        {t("download")}
-      </motion.a>
     </section>
   );
 }

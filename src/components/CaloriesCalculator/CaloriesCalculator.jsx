@@ -13,15 +13,42 @@ export default function CalorieCalculator() {
 
   const calculateCalories = () => {
     if (!weight || !height || !age) return;
+
+    const weightNum = parseFloat(weight);
+    const heightNum = parseFloat(height);
+    const ageNum = parseFloat(age);
+    const activityNum = parseFloat(activity);
+
     const bmr =
       gender === "male"
-        ? 10 * weight + 6.25 * height - 5 * age + 5
-        : 10 * weight + 6.25 * height - 5 * age - 161;
-    const totalCalories = bmr * parseFloat(activity);
+        ? 10 * weightNum + 6.25 * heightNum - 5 * ageNum + 5
+        : 10 * weightNum + 6.25 * heightNum - 5 * ageNum - 161;
+
+    const maintenance = Math.round(bmr * activityNum);
+    const deficit = Math.round(maintenance * 0.85);
+    const surplus = Math.round(maintenance * 1.15);
+
+    // Макроси (білки — 2г/кг, жири — 1г/кг, вуглеводи — решта)
+    const calculateMacros = (calories) => {
+      const protein = Math.round(weightNum * 2); // 2 г білка на кг
+      const fat = Math.round(weightNum * 1); // 1 г жиру на кг
+      const proteinCalories = protein * 4;
+      const fatCalories = fat * 9;
+      const remainingCalories = calories - (proteinCalories + fatCalories);
+      const carbs = Math.round(remainingCalories / 4); // 4 ккал на 1 г вуглеводів
+
+      return { protein, fat, carbs };
+    };
+
     setResult({
-      maintenance: Math.round(totalCalories),
-      deficit: Math.round(totalCalories * 0.85),
-      surplus: Math.round(totalCalories * 1.15),
+      maintenance,
+      deficit,
+      surplus,
+      macros: {
+        maintenance: calculateMacros(maintenance),
+        deficit: calculateMacros(deficit),
+        surplus: calculateMacros(surplus),
+      },
     });
   };
 
@@ -59,16 +86,34 @@ export default function CalorieCalculator() {
           <option value="1.9">{t("veryActive")}</option>
         </select>
         <button onClick={calculateCalories}>{t("calculate")}</button>
+
         {result && (
           <div className={styles.result}>
             <p>
               {t("maintenance")}: {result.maintenance} {t("kcal")}
             </p>
             <p>
+              {t("protein")}: {result.macros.maintenance.protein}г, {t("fat")}:{" "}
+              {result.macros.maintenance.fat}г, {t("carbs")}:{" "}
+              {result.macros.maintenance.carbs}г
+            </p>
+
+            <p>
               {t("deficit")}: {result.deficit} {t("kcal")}
             </p>
             <p>
+              {t("protein")}: {result.macros.deficit.protein}г, {t("fat")}:{" "}
+              {result.macros.deficit.fat}г, {t("carbs")}:{" "}
+              {result.macros.deficit.carbs}г
+            </p>
+
+            <p>
               {t("surplus")}: {result.surplus} {t("kcal")}
+            </p>
+            <p>
+              {t("protein")}: {result.macros.surplus.protein}г, {t("fat")}:{" "}
+              {result.macros.surplus.fat}г, {t("carbs")}:{" "}
+              {result.macros.surplus.carbs}г
             </p>
           </div>
         )}
