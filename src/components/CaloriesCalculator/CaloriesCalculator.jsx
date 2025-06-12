@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./CaloriesCalculator.module.css";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function CalorieCalculator() {
   const { t } = useTranslation();
@@ -11,45 +15,77 @@ export default function CalorieCalculator() {
   const [gender, setGender] = useState("male");
   const [result, setResult] = useState(null);
 
+  const calculateMacros = (calories) => {
+    const protein = Math.round(weight * 2); // грамів
+    const fats = Math.round(weight * 1); // грамів
+    const proteinCalories = protein * 4;
+    const fatCalories = fats * 9;
+    const remainingCalories = calories - proteinCalories - fatCalories;
+    const carbs = Math.round(remainingCalories / 4); // грамів
+    return { protein, fats, carbs };
+  };
+
   const calculateCalories = () => {
     if (!weight || !height || !age) return;
-
-    const weightNum = parseFloat(weight);
-    const heightNum = parseFloat(height);
-    const ageNum = parseFloat(age);
-    const activityNum = parseFloat(activity);
-
     const bmr =
       gender === "male"
-        ? 10 * weightNum + 6.25 * heightNum - 5 * ageNum + 5
-        : 10 * weightNum + 6.25 * heightNum - 5 * ageNum - 161;
+        ? 10 * weight + 6.25 * height - 5 * age + 5
+        : 10 * weight + 6.25 * height - 5 * age - 161;
+    const totalCalories = bmr * parseFloat(activity);
 
-    const maintenance = Math.round(bmr * activityNum);
-    const deficit = Math.round(maintenance * 0.85);
-    const surplus = Math.round(maintenance * 1.15);
-
-    // Макроси (білки — 2г/кг, жири — 1г/кг, вуглеводи — решта)
-    const calculateMacros = (calories) => {
-      const protein = Math.round(weightNum * 2); // 2 г білка на кг
-      const fat = Math.round(weightNum * 1); // 1 г жиру на кг
-      const proteinCalories = protein * 4;
-      const fatCalories = fat * 9;
-      const remainingCalories = calories - (proteinCalories + fatCalories);
-      const carbs = Math.round(remainingCalories / 4); // 4 ккал на 1 г вуглеводів
-
-      return { protein, fat, carbs };
-    };
+    const maintenance = Math.round(totalCalories);
+    const deficit = Math.round(totalCalories * 0.85);
+    const surplus = Math.round(totalCalories * 1.15);
 
     setResult({
-      maintenance,
-      deficit,
-      surplus,
-      macros: {
-        maintenance: calculateMacros(maintenance),
-        deficit: calculateMacros(deficit),
-        surplus: calculateMacros(surplus),
+      maintenance: {
+        kcal: maintenance,
+        macros: calculateMacros(maintenance),
+      },
+      deficit: {
+        kcal: deficit,
+        macros: calculateMacros(deficit),
+      },
+      surplus: {
+        kcal: surplus,
+        macros: calculateMacros(surplus),
       },
     });
+  };
+
+  const renderPieChart = (label, macros) => {
+    const labels = [t("protein"), t("fats"), t("carbs")];
+
+    const data = {
+      labels,
+      datasets: [
+        {
+          label: `${label} ${t("macros")}`,
+          data: [macros.protein * 4, macros.fats * 9, macros.carbs * 4],
+          backgroundColor: ["#36a2eb", "#ff6384", "#ffcd56"],
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    return (
+      <div className={styles.macrosChartWrapper}>
+        <ul className={styles.macrosList}>
+          <li>
+            🍗 {t("protein")}: {macros.protein}g
+          </li>
+          <li>
+            🥑 {t("fats")}: {macros.fats}g
+          </li>
+          <li>
+            🍞 {t("carbs")}: {macros.carbs}g
+          </li>
+        </ul>
+        <div className={styles.chartContainer}>
+          <Pie data={data} />
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -88,33 +124,16 @@ export default function CalorieCalculator() {
         <button onClick={calculateCalories}>{t("calculate")}</button>
 
         {result && (
-          <div className={styles.result}>
-            <p>
-              {t("maintenance")}: {result.maintenance} {t("kcal")}
-            </p>
-            <p>
-              {t("protein")}: {result.macros.maintenance.protein}г, {t("fat")}:{" "}
-              {result.macros.maintenance.fat}г, {t("carbs")}:{" "}
-              {result.macros.maintenance.carbs}г
-            </p>
-
-            <p>
-              {t("deficit")}: {result.deficit} {t("kcal")}
-            </p>
-            <p>
-              {t("protein")}: {result.macros.deficit.protein}г, {t("fat")}:{" "}
-              {result.macros.deficit.fat}г, {t("carbs")}:{" "}
-              {result.macros.deficit.carbs}г
-            </p>
-
-            <p>
-              {t("surplus")}: {result.surplus} {t("kcal")}
-            </p>
-            <p>
-              {t("protein")}: {result.macros.surplus.protein}г, {t("fat")}:{" "}
-              {result.macros.surplus.fat}г, {t("carbs")}:{" "}
-              {result.macros.surplus.carbs}г
-            </p>
+          <div className={styles.cardsWrapper}>
+            {["maintenance", "deficit", "surplus"].map((key) => (
+              <div key={key} className={styles.card}>
+                <h3>{t(key)}</h3>
+                <p>
+                  {t("kcal")}: {result[key].kcal}
+                </p>
+                {renderPieChart(t(key), result[key].macros)}
+              </div>
+            ))}
           </div>
         )}
       </div>
