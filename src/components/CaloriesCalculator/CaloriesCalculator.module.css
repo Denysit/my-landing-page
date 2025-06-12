@@ -1,32 +1,42 @@
 .section {
-  padding: 50px 20px;
+  padding: 40px 16px;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: clamp(1.8rem, 5vw, 2.2rem);
+  margin-bottom: 24px;
   text-transform: uppercase;
+  text-align: center;
+  color: var(--primary-text);
 }
 
 .calculatorForm {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   max-width: 400px;
   margin: 0 auto;
 }
 
 .calculatorForm input,
 .calculatorForm select {
-  padding: 10px;
+  padding: 12px;
   border: 2px solid var(--accent);
   border-radius: 8px;
   background: var(--button-bg);
   color: var(--primary-text);
   font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.calculatorForm input:focus,
+.calculatorForm select:focus {
+  outline: none;
+  border-color: var(--accent-hover);
 }
 
 .calculatorForm button {
@@ -34,11 +44,11 @@ h2 {
   color: var(--primary-text);
   border: 2px solid var(--accent);
   border-radius: 8px;
-  padding: 8px 16px;
+  padding: 12px 24px;
   font-size: 1.1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .calculatorForm button:hover {
@@ -46,16 +56,113 @@ h2 {
   color: #fff;
 }
 
-.result {
-  margin-top: 20px;
-  padding: 15px;
-  border: 2px solid var(--accent);
-  border-radius: 8px;
-  background: var(--button-bg);
+.cardsWrapper {
+  margin-top: 32px;
+  display: grid;
+  gap: 20px;
+  justify-content: center;
 }
 
-@media (min-width: 768px) {
-  h2 {
-    font-size: 2.2rem;
+/* Мобільні: одна колонка */
+@media (max-width: 767px) {
+  .cardsWrapper {
+    grid-template-columns: 1fr;
   }
 }
+
+/* Планшети: 2 колонки, третя картка на всю ширину */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cardsWrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 400px;
+  }
+}
+
+/* Десктоп: 3 колонки */
+@media (min-width: 1024px) {
+  .cardsWrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 5vw, 2.4rem);
+  }
+}
+
+.card {
+  background: var(--button-bg);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: var(--primary-text);
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  text-transform: capitalize;
+}
+
+.card p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.macrosList {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.macrosList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chartContainer {
+  max-width: 200px;
+  width: 100%;
+  margin: 16px auto 0;
+  aspect-ratio: 1 / 1; /* Забезпечує квадратну форму діаграми */
+}
+
+/* Адаптивність діаграми для малих екранів */
+@media (max-width: 767px) {
+  .chartContainer {
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
+
+.macrosChartWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+

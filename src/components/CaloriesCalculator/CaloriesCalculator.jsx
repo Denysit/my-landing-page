@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./CaloriesCalculator.module.css";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function CalorieCalculator() {
   const { t } = useTranslation();
@@ -11,6 +15,16 @@ export default function CalorieCalculator() {
   const [gender, setGender] = useState("male");
   const [result, setResult] = useState(null);
 
+  const calculateMacros = (calories) => {
+    const protein = Math.round(weight * 2); // грамів
+    const fats = Math.round(weight * 1); // грамів
+    const proteinCalories = protein * 4;
+    const fatCalories = fats * 9;
+    const remainingCalories = calories - proteinCalories - fatCalories;
+    const carbs = Math.round(remainingCalories / 4); // грамів
+    return { protein, fats, carbs };
+  };
+
   const calculateCalories = () => {
     if (!weight || !height || !age) return;
     const bmr =
@@ -18,11 +32,60 @@ export default function CalorieCalculator() {
         ? 10 * weight + 6.25 * height - 5 * age + 5
         : 10 * weight + 6.25 * height - 5 * age - 161;
     const totalCalories = bmr * parseFloat(activity);
+
+    const maintenance = Math.round(totalCalories);
+    const deficit = Math.round(totalCalories * 0.85);
+    const surplus = Math.round(totalCalories * 1.15);
+
     setResult({
-      maintenance: Math.round(totalCalories),
-      deficit: Math.round(totalCalories * 0.85),
-      surplus: Math.round(totalCalories * 1.15),
+      maintenance: {
+        kcal: maintenance,
+        macros: calculateMacros(maintenance),
+      },
+      deficit: {
+        kcal: deficit,
+        macros: calculateMacros(deficit),
+      },
+      surplus: {
+        kcal: surplus,
+        macros: calculateMacros(surplus),
+      },
     });
+  };
+
+  const renderPieChart = (label, macros) => {
+    const labels = [t("protein"), t("fats"), t("carbs")];
+
+    const data = {
+      labels,
+      datasets: [
+        {
+          label: `${label} ${t("macros")}`,
+          data: [macros.protein * 4, macros.fats * 9, macros.carbs * 4],
+          backgroundColor: ["#36a2eb", "#ff6384", "#ffcd56"],
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    return (
+      <div className={styles.macrosChartWrapper}>
+        <ul className={styles.macrosList}>
+          <li>
+            🍗 {t("protein")}: {macros.protein}g
+          </li>
+          <li>
+            🥑 {t("fats")}: {macros.fats}g
+          </li>
+          <li>
+            🍞 {t("carbs")}: {macros.carbs}g
+          </li>
+        </ul>
+        <div className={styles.chartContainer}>
+          <Pie data={data} />
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -59,17 +122,18 @@ export default function CalorieCalculator() {
           <option value="1.9">{t("veryActive")}</option>
         </select>
         <button onClick={calculateCalories}>{t("calculate")}</button>
+
         {result && (
-          <div className={styles.result}>
-            <p>
-              {t("maintenance")}: {result.maintenance} {t("kcal")}
-            </p>
-            <p>
-              {t("deficit")}: {result.deficit} {t("kcal")}
-            </p>
-            <p>
-              {t("surplus")}: {result.surplus} {t("kcal")}
-            </p>
+          <div className={styles.cardsWrapper}>
+            {["maintenance", "deficit", "surplus"].map((key) => (
+              <div key={key} className={styles.card}>
+                <h3>{t(key)}</h3>
+                <p>
+                  {t("kcal")}: {result[key].kcal}
+                </p>
+                {renderPieChart(t(key), result[key].macros)}
+              </div>
+            ))}
           </div>
         )}
       </div>

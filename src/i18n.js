@@ -11,7 +11,6 @@ i18n.use(initReactI18next).init({
         tiktok: "TikTok",
         instagram: "Instagram",
         telegram: "Telegram",
-        download: "Download Weight Loss Guide",
         aboutMe: "About Me",
         Services: "Services",
         courses: "Courses",
@@ -37,7 +36,7 @@ i18n.use(initReactI18next).init({
         personalTraining: "Personal Training",
         personalTrainingDesc:
           "Individual approach, training and nutrition plan",
-        onlineTraining: "Group Training",
+        onlineTraining: "Online Training",
         onlineTrainingDesc:
           "Video training at home or in the gym, training and nutrition plan",
         onlineConsultation: "Online Consultation",
@@ -48,6 +47,11 @@ i18n.use(initReactI18next).init({
         infoDesc:
           "I am a trainer with 15 years of training experience and 5 years of coaching experience. Certified and certified specialist. Graduated from the Dragamanova National University of Physical Education and Sports, Institute of Physical Education and Sports. My goal is to help you achieve your goals and lay the foundation for a healthy lifestyle. I believe that everyone can become a better version of themselves, and I am here to support you on this path. My training philosophy is based on an individual approach to each client, taking into account their needs and goals!",
         descInfo: "Fitness-Trainer",
+        selectTraining: "Select Training",
+        contactFormTitle: "Sign Up for Training",
+        protein: "Protein",
+        fats: "Fat",
+        carbs: "Carbohydrates",
       },
     },
     uk: {
@@ -58,7 +62,6 @@ i18n.use(initReactI18next).init({
         tiktok: "TikTok",
         telegram: "Telegram",
         instagram: "Instagram",
-        download: "Завантажити гайд зі схуднення",
         aboutMe: "Інформація про мене",
         Services: "Послуги",
         courses: "Курси",
@@ -88,13 +91,18 @@ i18n.use(initReactI18next).init({
         onlineTrainingDesc:
           "Тренування по відеозв'язку вдома або в залі, план тренувань та харчування",
         onlineConsultation: "Онлайн-консультація",
-        onlineConsultationDesc: "Складання плану тренувань і харчування",
+        onlineConsultationDesc: "Складання плану тренувань корекція харчування",
         pricePersonalTraining: "Ціна: 350 грн",
         priceOnlineTraining: "Ціна: 300 грн",
         priceOnlineConsultation: "Ціна: 1000 грн",
         infoDesc:
           "Я тренер зі стажем тренувань 15 років та 5 років тренерського досвіду. Сертифікований та дипломований спеціаліст. Закінчив НПУ Драгаманова, Інститут Фізичного виховання та спорту. Моя мета — допомогти тобі досягти цілей, та закласти фундамент здорового способу життя. Я вірю, що кожен може стати кращою версією себе, і я тут, щоб підтримати тебе на цьому шляху. Моя філософія тренувань базується на індивідуальному підході до кожного клієнта, враховуючи його потреби та цілі!",
         descInfo: "Фітнес-тренер",
+        selectTraining: "Обрати тренування",
+        contactFormTitle: "Запис на тренування",
+        protein: "Білки",
+        fats: "Жири",
+        carbs: "Вуглеводи",
       },
     },
   },
