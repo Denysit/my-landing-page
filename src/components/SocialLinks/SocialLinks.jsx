@@ -9,7 +9,7 @@ export default function SocialLinks() {
       <h2>{t("social")}</h2>
       <div className={styles.socialLinks}>
         <motion.a
-          href="https://www.instagram.com/den.fizika"
+          href="https://www.instagram.com/den.fizik"
           whileHover={{ scale: 1.1, color: "#cc0000" }}
           transition={{ duration: 0.3 }}
           className={styles.socialLink}

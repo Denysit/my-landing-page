@@ -91,7 +91,7 @@ i18n.use(initReactI18next).init({
         onlineTrainingDesc:
           "Тренування по відеозв'язку вдома або в залі, план тренувань та харчування",
         onlineConsultation: "Онлайн-консультація",
-        onlineConsultationDesc: "Складання плану тренувань корекція харчування",
+        onlineConsultationDesc: "Складання плану тренувань та харчування",
         pricePersonalTraining: "Ціна: 350 грн",
         priceOnlineTraining: "Ціна: 300 грн",
         priceOnlineConsultation: "Ціна: 1000 грн",
