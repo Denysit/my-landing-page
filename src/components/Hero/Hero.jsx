@@ -30,7 +30,8 @@ export default function Hero() {
         {t("info")}
       </motion.p>
       <motion.a
-        href="https://www.instagram.com/den.fizik"
+        href="https://t.me/den_fizika?text=Вітаю! Хочу записатись на тренування"
+        target="_blank"
         className={styles.ctaButton}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
